@@ -6,7 +6,7 @@ import google.generativeai as genai
 import tkinter as tk
 
 # It's recommended to handle API keys via environment variables for security.
-GEMINI_API_KEY = "AIzaSyD26yOloO3k5Yyvs6O4Lh7EiDtF94iNPpU"  # Replace with your key if not using .env
+GEMINI_API_KEY = "XXXXXXXXXX"  # Replace with your key if not using .env
 
 
 def _log(message: str, log_widget=None):
