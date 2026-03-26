@@ -127,7 +127,7 @@ def call_gemini_api_with_retry(
     Calls the Gemini API with a given prompt and handles retries with exponential backoff.
     If a JSON parsing error occurs, it attempts to salvage partial data.
     """
-    api_key = "AIzaSyD9DVWRDtCOzk73XGFwvLj3x5ncq5jZuZA"
+    api_key = "XXXXXXXXXX"
     # api_key = os.getenv("GEMINI_API_KEY", "your_default_api_key_here")  # Use env var, provide a placeholder
     if not api_key or "your_default_api_key_here" in api_key:
         return False, "GEMINI_API_KEY not found or not set in .env file."
