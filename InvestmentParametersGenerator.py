@@ -4,7 +4,7 @@ import google.generativeai as genai
 
 # You can place your API key here as a fallback, similar to the other script.
 # It's recommended to handle API keys via environment variables for security.
-GEMINI_API_KEY = "AIzaSyD26yOloO3k5Yyvs6O4Lh7EiDtF94iNPpU"  # Replace with your key if not using .env
+GEMINI_API_KEY = "XXXXXXXXXXX"  # Replace with your key if not using .env
 
 
 def get_investment_parameters(api_key: str, startup_list: list[str], area: str, geo: str, model_name: str, nParameters : str | int = "40") -> tuple[
