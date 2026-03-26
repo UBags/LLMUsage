@@ -61,7 +61,7 @@ The entire pipeline is driven by **structured Pydantic contracts**, **retry logi
 
 ## System Architecture
 
-```
+```mermaid
 graph TB
     subgraph UI["🖥️ UI Layer"]
         APP["StartupFinderApp\n(Tkinter GUI)"]
@@ -135,7 +135,7 @@ LLMUsage/
 
 ## Class Diagram
 
-```
+```mermaid
 classDiagram
     class StartupFinderApp {
         +root: tk.Tk
@@ -206,7 +206,7 @@ classDiagram
 
 ## End-to-End Data Flow
 
-```
+```mermaid
 flowchart TD
     USER(["👤 User\nsector + geo + n_startups + n_params"])
 
@@ -251,7 +251,7 @@ flowchart TD
 
 ### Stage 1: Startup Discovery
 
-```
+```mermaid
 sequenceDiagram
     participant APP as StartupFinderApp
     participant GSS as GetSeedStartups5
@@ -290,7 +290,7 @@ sequenceDiagram
 
 ### Stage 2: Investment Parameters
 
-```
+```mermaid
 sequenceDiagram
     participant APP as StartupFinderApp
     participant IPG as InvestmentParametersGenerator
@@ -308,7 +308,7 @@ sequenceDiagram
 
 ### Stage 3: Data Population
 
-```
+```mermaid
 sequenceDiagram
     participant APP as StartupFinderApp
     participant PD as PopulateData
@@ -351,7 +351,7 @@ sequenceDiagram
 
 ### GUI Thread Interaction
 
-```
+```mermaid
 sequenceDiagram
     participant USER as User
     participant GUI as StartupFinderApp (Main Thread)
@@ -403,7 +403,7 @@ Every Gemini call is paired with a **Pydantic model** that validates the respons
 
 `call_gemini_api_with_retry()` implements exponential backoff:
 
-```
+```mermaid
 flowchart LR
     CALL["API Call\n(attempt N)"] --> CHECK{Success?}
     CHECK -->|Yes| RETURN["Return result"]
@@ -437,7 +437,7 @@ Enable by setting `grokEnabled = True` in `GetSeedStartups5.py` and providing a 
 
 ## Error Handling & Resilience
 
-```
+```mermaid
 flowchart TD
     API["Gemini API Call"] --> RESP{Response OK?}
     RESP -->|Blocked / Empty| BLOCK["Log block reason\nStore error record\nContinue to next startup"]
@@ -445,10 +445,10 @@ flowchart TD
     RESP -->|Malformed JSON| REPAIR
 
     subgraph REPAIR["JSON Self-Repair Ladder"]
-        R1["Try: strip markdown fences\n(```json ... ```)"]
-        R2["Try: fix invalid backslash escapes\nre.sub for non-standard \\"]
+        R1["Try: strip markdown fences"]
+        R2["Try: fix invalid backslash escapes\nre.sub for non-standard backslashes"]
         R3["Try: fix single-quoted keys\nre.sub for 'key':"]
-        R4["Raise original error\n→ store error record"]
+        R4["Raise original error\nstore error record"]
         R1 --> R2 --> R3 --> R4
     end
 
